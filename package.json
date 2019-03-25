@@ -2,9 +2,11 @@
   "name": "luffie",
   "version": "0.0.1",
   "description": "A state management library for React",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "mocha --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -18,9 +20,17 @@
     "flux"
   ],
   "author": "Vitor Manfré",
+  "contributors": [
+    "Filipe Versehgi <filipeversehgi@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tegraoss/luffie/issues"
   },
-  "homepage": "https://github.com/tegraoss/luffie#readme"
+  "homepage": "https://github.com/tegraoss/luffie#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "typescript": "^3.3.4000"
+  }
 }
