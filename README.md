@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tegraoss/luffie.svg?branch=master)](https://travis-ci.org/tegraoss/luffie) [![Coverage Status](https://coveralls.io/repos/github/tegraoss/luffie/badge.svg?branch=master)](https://coveralls.io/github/tegraoss/luffie?branch=master)
+
 <p align="center">
   <img width="180" src="assets/luffiejs-logo-b.png">
 </p>
