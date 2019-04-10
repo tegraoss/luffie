@@ -1,6 +1,6 @@
 import { createStore } from "../../lib";
 
-interface IStore {
+export interface IStore {
   total: number;
   changed: boolean;
 }
@@ -25,7 +25,6 @@ const setTotalDouble = () => updateState((state: any) => ({
 }));
 
 export {
-  IStore,
   state$,
   getCurrentState,
   setTotal10ChangedTrue,
