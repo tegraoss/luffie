@@ -1,22 +1,11 @@
 import { createStore } from "../lib";
 import { take, skip } from 'rxjs/operators';
+import { state$, setTotal10ChangedTrue, setTotal20, getCurrentState, setTotalDouble } from "../lib/aux/aux-code";
 
 describe('Store', () => {
   beforeAll(() => {
     process.env = Object.assign(process.env, { isTesting: 'true' });
   });
-
-  interface IStore {
-    total: number;
-    changed: boolean;
-  }
-
-  const initialState: IStore = {
-    total: 0,
-    changed: false
-  }
-  
-  const { updateState, getCurrentState, state$ } = createStore(initialState);
 
   it('Creates a Store', async done => {
     state$.pipe(
@@ -42,9 +31,7 @@ describe('Store', () => {
       done();
     });
 
-    updateState({
-      total: 10, changed: true
-    });
+    setTotal10ChangedTrue();
   });
 
   it('Update State Partially', async done => {
@@ -59,9 +46,7 @@ describe('Store', () => {
       done();
     })
 
-    updateState({
-      total: 20
-    });
+    setTotal20();
   });
 
   it('Retrieve current State', () => {
@@ -85,8 +70,6 @@ describe('Store', () => {
       done();
     })
 
-    updateState((state: any) => ({
-      total: state.total * 2
-    }));
+    setTotalDouble();
   });
 })

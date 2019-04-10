@@ -1,11 +1,12 @@
+import * as React from 'react';
 import { Component } from 'react';
 import { Subscription } from 'rxjs';
 import { TStream, ILifecycle, IPlugState } from './interfaces/plug';
 
 
-export const plug = (stream: TStream, lifecycleHooks: Partial<ILifecycle>,
+export const plug = <T extends {}>(stream: TStream, lifecycleHooks: Partial<ILifecycle> = {},
 ) => (WrappedComponent: any) =>
-  class PluggedComponent extends Component<any, IPlugState> {
+  class PluggedComponent extends Component<T, IPlugState> {
     
     _streamSubscription!: Subscription;
 
