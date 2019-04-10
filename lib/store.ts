@@ -1,6 +1,6 @@
-import { clone } from './aux/clone';
 import { IStore } from './interfaces/store';
 import { BehaviorSubject } from 'rxjs';
+import { clone } from './utils/clone';
 
 function createStore<IState>(initialState: IState): IStore<IState> {
   const behavior$ = new BehaviorSubject<IState>(clone(initialState));

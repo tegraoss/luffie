@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { render, cleanup, waitForElement } from 'react-testing-library';
 import 'jest-dom/extend-expect'
-import { plug } from '../lib';
-import { of, Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { PluggedTestComponent, setTotal10ChangedTrue } from '../lib/aux/aux-code';
+import { PluggedTestComponent } from '../lib/utils/example-plug';
+import { setTotal10ChangedTrue } from '../lib/utils/example-store';
 
 describe('Plug', () => {
   afterEach(cleanup);

@@ -1,6 +1,5 @@
-import { createStore } from "../lib";
 import { take, skip } from 'rxjs/operators';
-import { state$, setTotal10ChangedTrue, setTotal20, getCurrentState, setTotalDouble } from "../lib/aux/aux-code";
+import { state$, setTotal10ChangedTrue, setTotal20, getCurrentState, setTotalDouble } from '../lib/utils/example-store';
 
 describe('Store', () => {
   beforeAll(() => {
