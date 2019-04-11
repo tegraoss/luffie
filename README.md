@@ -13,6 +13,24 @@ You can keep your state centralized at our **Store** and create functions that a
 
 In Luffie, you need two steps to do that:
 
+## How to install
+
+```bash
+npm install --save luffie
+```
+
+or
+
+```bash
+yarn add luffie
+```
+
+## How to use
+
+```javascript
+import { createStore, plug } from "luffie"
+```
+
 <hr />
 
 <p align="center">
