@@ -1,3 +1,7 @@
-export function testLib(): string {
-  return `It's working!`;
+import { plug } from "./plug";
+import { createStore } from "./store";
+
+export {
+  plug,
+  createStore
 }
