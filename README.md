@@ -27,7 +27,7 @@ Usually you will have a Store for each Page or Shared Resource that you need to 
 ```javascript
 
 const initialState = {
-  ...you-initial-data
+  ...yourInitialData
 }
 
 const { updateState, getCurrentState, state$ } = createStore(initialState);
