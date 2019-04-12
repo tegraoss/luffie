@@ -1,51 +1,26 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { Subscription } from 'rxjs';
-import { TStream, ILifecycle, IPlugState } from './interfaces/plug';
+import { useState, useEffect } from 'react';
+import { TStream } from './interfaces/plug';
 
+export const plug = <T extends {}>(stream: TStream) => (WrappedComponent: any) => (props: T) => {
+  const [hasEmmited, setHasEmitted] = useState(false);
+  const [innerData, setInnerData] = useState({});
 
-export const plug = <T extends {}>(stream: TStream, lifecycleHooks: Partial<ILifecycle> = {},
-) => (WrappedComponent: any) =>
-  class PluggedComponent extends Component<T, IPlugState> {
-    
-    _streamSubscription!: Subscription;
+  useEffect(() => {
+    const streamSubscription = stream(props)
+      .subscribe((data: any) => {
+        setHasEmitted(true);
+        setInnerData(data);
+      });
 
-    constructor(props: any) {
-      super(props);
-
-      this.state = {
-        hasEmmited: false,
-      };
+    return () => {
+      streamSubscription.unsubscribe();
     }
+  }, [])
 
-    public componentDidMount() {
-      this._streamSubscription = stream(this.props).subscribe((data: any) =>
-        this.setState({
-          hasEmmited: true,
-          innerData: data,
-        }),
-      );
-
-      if (lifecycleHooks.componentDidMount) {
-        lifecycleHooks.componentDidMount();
-      }
-    }
-
-    public componentWillUnmount() {
-      this._streamSubscription.unsubscribe();
-
-      if (lifecycleHooks.componentWillUnmount) {
-        lifecycleHooks.componentWillUnmount();
-      }
-    }
-
-    public render() {
-      const { hasEmmited, innerData } = this.state;
-
-      if (hasEmmited) {
-        return <WrappedComponent {...innerData} />;
-      }
-
-      return null;
-    }
+  if (hasEmmited) {
+    return <WrappedComponent {...innerData} />;
   }
+
+  return null;
+}
