@@ -3,10 +3,11 @@ import { Component } from 'react';
 import { Subscription } from 'rxjs';
 import { TStream, ILifecycle, IPlugState } from './interfaces/plug';
 
-
 export const plug = <T extends {}>(stream: TStream, lifecycleHooks: Partial<ILifecycle> = {},
-) => (WrappedComponent: any) =>
-  class PluggedComponent extends Component<T, IPlugState> {
+) => (WrappedComponent: any) => {
+  const factory = React.createFactory(WrappedComponent);
+
+  return class PluggedComponent extends Component<T, IPlugState> {
     
     _streamSubscription!: Subscription;
 
@@ -43,9 +44,10 @@ export const plug = <T extends {}>(stream: TStream, lifecycleHooks: Partial<ILif
       const { hasEmmited, innerData } = this.state;
 
       if (hasEmmited) {
-        return <WrappedComponent {...innerData} />;
+        return factory({...this.props, ...innerData});
       }
 
       return null;
     }
   }
+}
