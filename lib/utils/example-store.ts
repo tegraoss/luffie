@@ -24,10 +24,15 @@ const setTotalDouble = () => updateState((state: any) => ({
   total: state.total * 2
 }));
 
+const cleanStore = () => {
+  updateState(initialState);
+}
+
 export {
   state$,
   getCurrentState,
   setTotal10ChangedTrue,
   setTotal20,
-  setTotalDouble
+  setTotalDouble,
+  cleanStore
 }
