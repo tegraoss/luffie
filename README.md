@@ -72,10 +72,33 @@ When you call `updateState`, your new data will be merged with the current data 
 <hr />
 
 <p align="center">
+  <img src="assets/luffiejs-usestream.png">
+</p>
+
+The other side of the coin is the UsePlug Hook. This way you can Plug your component into your newly created Store and at each change, the store data update your component's state.
+
+```javascript
+const TestComponent = (props) => {
+  const { name } = props;
+  const state = usePlug(state$)
+  return (
+    <div>
+      <h1 data-testid="name">{name}</h1>
+      <p data-testid="total">Total: {total}</p>
+      <p data-testid="changed">The store was{changed ? '' : `n't`} changed.</p>
+    </div>
+  )
+}
+```
+
+<hr />
+
+<p align="center">
   <img src="assets/luffiejs-plug.png">
 </p>
 
-The other side of the coin is the Plug HOC. This way you can Plug your component into your newly created Store and at each change, the store data will be forwarded as props to your component.
+**Use Luffie like this if your React doesn't support Hooks**
+If you use a older version of React without Hooks, you can use the Plug HOC to connect your component with you store state following the steps described below:
 
 **1. Create your Container**
 
