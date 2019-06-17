@@ -80,7 +80,7 @@ The other side of the coin is the UsePlug Hook. This way you can Plug your compo
 ```javascript
 const TestComponent = (props) => {
   const { name } = props;
-  const state = usePlug(state$)
+  const state = useStream(state$)
   return (
     <div>
       <h1 data-testid="name">{name}</h1>
