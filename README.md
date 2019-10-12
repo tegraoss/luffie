@@ -78,8 +78,7 @@ When you call `updateState`, your new data will be merged with the current data 
 The other side of the coin is the UsePlug Hook. This way you can Plug your component into your newly created Store and at each change, the store data update your component's state.
 
 ```javascript
-const TestComponent = (props) => {
-  const { name } = props;
+const TestComponent = ({ name, total }) => {
   const state = useStream(state$)
   return (
     <div>
