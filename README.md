@@ -45,7 +45,8 @@ Usually you will have a Store for each Page or Shared Resource that you need to 
 ```javascript
 
 const initialState = {
-  ...yourInitialData
+  total: 0,
+  changed: false,
 }
 
 const { updateState, getCurrentState, state$ } = createStore(initialState);
@@ -63,7 +64,10 @@ export { yourState$ }
 
 ```javascript
 const changeTotal = (quantity: number) => {
-  updateState({ total: 10 })
+  updateState({
+    total: quantity,
+    changed: true,
+  });
 }
 ```
 
@@ -78,16 +82,17 @@ When you call `updateState`, your new data will be merged with the current data 
 The other side of the coin is the UsePlug Hook. This way you can Plug your component into your newly created Store and at each change, the store data update your component's state.
 
 ```javascript
-const TestComponent = ({ name, total }) => {
-  const state = useStream(state$)
+const TestComponent = ({ name }) => {
+  const { total, changed } = useStream(yourState$);
   return (
     <div>
       <h1 data-testid="name">{name}</h1>
       <p data-testid="total">Total: {total}</p>
       <p data-testid="changed">The store was{changed ? '' : `n't`} changed.</p>
+      <button onClick={() => changeTotal(total + 1)}>Add more 1 to Total</button>
     </div>
-  )
-}
+  );
+};
 ```
 
 <hr />
@@ -102,13 +107,13 @@ If you use a older version of React without Hooks, you can use the Plug HOC to c
 **1. Create your Container**
 
 ```javascript
-const TestComponent = (props) => {
-  const { total, changed, name } = props;
+const TestComponent = ({ name, total, changed }) => {
   return (
     <div>
       <h1 data-testid="name">{name}</h1>
       <p data-testid="total">Total: {total}</p>
       <p data-testid="changed">The store was{changed ? '' : `n't`} changed.</p>
+      <button onClick={() => changeTotal(total + 1)}>Add more 1 to Total</button>
     </div>
   )
 }
@@ -121,16 +126,16 @@ This stream receives your parent's component Prop, and this way you can merge it
 ```javascript
 const streamToProp = (props) => {
   return of(props).pipe(
-    combineLatest(state$),
-    map(([props, state]) => {
+    combineLatest(yourState$),
+    map(([{ name }, state]) => {
       const data = {
-        name: props.name,
+        name,
         ...state
       }
       return data;
     })
   );
-}
+};
 ```
 
 **3. Plug!**
